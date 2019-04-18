@@ -1,0 +1,4 @@
+<view class="head">
+    <view>我是一个头部</view>
+    <view>{{text}}</view>
+</view>
