@@ -1,4 +1,4 @@
-import create from '../../utils/create';
+import create from '../../utils/lib/create';
 
 create({
     pure: true, //子组件字段，使用该字段，不会讲data的数据合并到 store.data上
@@ -21,5 +21,4 @@ create({
     ready() {
 
     }
-
 });

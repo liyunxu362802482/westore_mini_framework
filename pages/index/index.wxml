@@ -1,4 +1,5 @@
 <!--index.wxml-->
 <view class="container">
-
+    <view>love</view>
+    <view>{{userInfo.name}}</view>
 </view>
