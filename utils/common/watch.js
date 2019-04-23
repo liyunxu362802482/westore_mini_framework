@@ -3,49 +3,31 @@
 // Object.keys(params).forEach(key => {
 //     console.log(key);
 // });
+// 对westore的 onChange 进行细分。制作类似vue的watch方法
 
 
-export default function(obj, data = null) {
-    console.log(this);
-    if (!data) {
-        data = this.data;
-    }
-
+export default function(obj) {
     if (!obj) {
         this.log(`需要传入监听 watch 方法`);
         return;
     }
-    var observerData = [];
-    Object.keys(obj).forEach(key => {
-        observerData.push({
-            'key': key,
-            'callBack': obj[key]
-                // 'orginVal': 
-        })
-    });
+
     this.onChange = (newVal) => {
         try {
-            observerData.forEach(v => {
-                const key = v.key;
-                // 判断callback是否是方法
-                const isFun = Object.prototype.toString.call(v.callBack) == '[object Function]';
-                if (!isFun) {
-                    this.log(`监听必须有回调方法`);
-                    return;
-                }
-
+            Object.keys(newVal).forEach(key => {
+                const callBack = obj[key];
+                const isFun = Object.prototype.toString.call(callBack) == '[object Function]';
+                // 没有设置该值的监听
+                if (!isFun) { return; }
                 const isHave = Object.prototype.toString.call(newVal[key]);
                 if (isHave == '[object Undefined]' || isHave == '[object Null]') {
-                    this.log(`更新的值为 Undefined 或者 Null ？？`);
-                    return;
+                    this.log(`更新的值为 Undefined 或者 Null`);
                 }
-
-                if (newVal && key && newVal[key]) {
-                    v.callBack(newVal[key]);
-                }
+                // 监听回调
+                callBack(newVal[key]);
             });
         } catch (error) {
-            this.log(`没有监听该对象`);
+            this.log(`监听出错 ${JSON.stringify(error)}`);
         }
     }
 }
