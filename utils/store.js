@@ -5,6 +5,9 @@ import log from './common/log';
 import share from './common/share';
 import request from './common/request';
 import eventUrl from './common/eventUrl';
+import watch from './common/watch';
+
+
 
 
 export default {
@@ -26,4 +29,6 @@ export default {
     share: share,
     // 网络请求
     request: request,
+    // 监听观察
+    watch: watch,
 }

@@ -4,10 +4,12 @@ import create from '../../utils/lib/create';
 create(store, {
     data: {
         'userInfo': {}, //如果需要用到 store的字段，需要在data这边做引用
-
         'codeTest': 'codeTest'
     },
     onLoad: function(options) {
+
+        this.store.log(`hello world`);
+
         setTimeout(() => {
             this.store.data.userInfo = {
                 name: 'raidsh update',
@@ -18,14 +20,19 @@ create(store, {
             this.update();
             // this.store.update();
         }, 3000);
-        this.store.onChange = this.watch;
+        this.store.watch(this.watch());
     },
-    watch(params) {
-        // westore默认的change回调，res 更新的字段，比如是 userInfo.name  userInfo.age userId
-        // 如果是多个更新，会多个都回调过来
-        Object.keys(params).forEach(key => {
-            console.log(key);
-        });
+    watch() {
+        return {
+            'userInfo.name': (newVal, oldVal) => {
+                console.log(`userInfo.name change ${newVal}`);
+                console.log(this.data.userInfo);
+
+            },
+            'userId': (newVal, oldVal) => {
+
+            }
+        }
     },
     // 分享
     onShareAppMessage(options) {

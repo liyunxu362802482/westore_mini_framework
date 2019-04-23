@@ -132,7 +132,7 @@ create({
 同样，在westore中也有类似监听观察的模式。主要是现在onChange的方法上。要能响应到改变的回调方法，必须要手动调用 update的方法。
 
 ```
-	onLoad: function(options) {
+onLoad: function(options) {
         setTimeout(() => {
             this.store.data.userInfo = {
                 name: 'raidsh update',
